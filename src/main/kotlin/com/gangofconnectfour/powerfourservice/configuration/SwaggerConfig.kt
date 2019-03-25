@@ -24,7 +24,7 @@ class SwaggerConfig {
         return Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.gangofconnectfour.powerfourservice.facade"))
-                .paths(PathSelectors.ant("/api/*"))
+                .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo())
                 .useDefaultResponseMessages(false)
