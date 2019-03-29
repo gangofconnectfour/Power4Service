@@ -1,16 +1,19 @@
 package com.gangofconnectfour.powerfourservice.facade
 
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import com.gangofconnectfour.powerfourservice.api.`in`.UserDtoIn
+import com.gangofconnectfour.powerfourservice.api.out.UserDtoOut
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/users")
 class UserController {
 
     @PostMapping
-    fun createUser() {
-
+    @ResponseStatus(HttpStatus.CREATED)
+    fun createUser(@RequestBody dtoIn: UserDtoIn) : ResponseEntity<UserDtoOut> {
+        return ResponseEntity.ok().body(UserDtoOut())
     }
 
 }

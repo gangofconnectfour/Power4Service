@@ -10,6 +10,7 @@ services:
       POSTGRES_PASSWORD: powerfour
       POSTGRES_DB: powerfour
       POSTGRES_USER: powerfour
+      POSTGRES_
     volumes:
       - ./db/postgres/data:/var/lib/postgresql/data
     ports:

@@ -1,22 +1,25 @@
 package com.gangofconnectfour.powerfourservice.facade
 
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import com.gangofconnectfour.powerfourservice.api.`in`.SessionDtoIn
+import com.gangofconnectfour.powerfourservice.api.out.SessionDtoOut
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/sessions")
 class SessionController {
 
     @PostMapping
-    fun login() {
-
+    @ResponseStatus(HttpStatus.CREATED)
+    fun login(@RequestBody dtoIn : SessionDtoIn) : ResponseEntity<SessionDtoOut> {
+        return ResponseEntity.ok().body(SessionDtoOut())
     }
 
     @DeleteMapping
-    fun logout() {
-
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    fun logout(@RequestBody dtoIn : SessionDtoIn) : ResponseEntity<SessionDtoOut> {
+        return ResponseEntity.ok().body(SessionDtoOut())
     }
 
 }

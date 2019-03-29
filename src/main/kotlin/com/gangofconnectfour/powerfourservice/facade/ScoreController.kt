@@ -1,23 +1,24 @@
 package com.gangofconnectfour.powerfourservice.facade
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import java.util.*
+import com.gangofconnectfour.powerfourservice.api.out.ScoreDtoOut
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/score")
 class ScoreController {
 
     @GetMapping("/game/{game_id}")
-    fun scoreGame(@PathVariable("game_id") gameId: String) : List<String> {
-        return Arrays.asList(gameId)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    fun scoreGame(@PathVariable("game_id") gameId: String) : ResponseEntity<ScoreDtoOut> {
+        return ResponseEntity.ok().body(ScoreDtoOut())
     }
 
     @GetMapping("/player/{player_id}")
-    fun scorePlayer(@PathVariable("player_id") playerId :String) : List<String> {
-        return Arrays.asList(playerId)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    fun scorePlayer(@PathVariable("player_id") playerId :String) : ResponseEntity<ScoreDtoOut> {
+        return ResponseEntity.ok().body(ScoreDtoOut())
     }
 
 }
