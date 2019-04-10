@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -37,12 +37,10 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "create_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createAt;
+    @Column(name = "create_at", updatable = false)
+    private LocalDateTime createAt;
 
     @Column(name = "update_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updateAt;
+    private LocalDateTime updateAt;
 
 }

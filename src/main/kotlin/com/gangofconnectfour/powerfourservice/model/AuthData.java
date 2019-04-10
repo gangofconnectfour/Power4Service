@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -21,12 +24,10 @@ public class AuthData {
     @Column(name = "token")
     private String token;
 
-    @Column(name = "connected_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date connectedAt;
+    @Column(name = "connected_at", updatable = false)
+    private LocalDateTime connectedAt;
 
-    @Column(name = "expired_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date expiredAt;
+    @Column(name = "expired_at", updatable = false)
+    private LocalDateTime expiredAt;
 
 }
