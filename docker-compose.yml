@@ -12,8 +12,6 @@ services:
       POSTGRES_USER: powerfour
     volumes:
       - ./db/postgres/data:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
 
   adminer:
     image: adminer
