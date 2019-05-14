@@ -3,6 +3,7 @@ package com.gangofconnectfour.powerfourservice.converter;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -17,6 +18,7 @@ public class LocalDateTimeAttributeConverter implements AttributeConverter<Local
 
     @Override
     public LocalDateTime convertToEntityAttribute(Date sqlTimestamp) {
-        return sqlTimestamp == null ? null : LocalDateTime.from(sqlTimestamp.toInstant());
+        Instant instant = Instant.ofEpochMilli(sqlTimestamp.getTime());
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }
 }

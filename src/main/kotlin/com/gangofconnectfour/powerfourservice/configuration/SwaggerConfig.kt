@@ -19,6 +19,8 @@ import java.util.*
 @EnableSwagger2
 class SwaggerConfig {
 
+    val API_VERSION = "V1"
+
     @Bean
     fun api () : Docket {
         return Docket(DocumentationType.SWAGGER_2)
@@ -48,9 +50,9 @@ class SwaggerConfig {
 
     private fun apiInfo(): ApiInfo {
         return ApiInfoBuilder()
-                .title("Swagger API Doc")
-                .description("More description about the API")
-                .version("1.0.0")
+                .title("Power4 API DOCS")
+                .description("Api de gestion de jeu de puissance 4 !!!")
+                .version(API_VERSION)
                 .build();
     }
 }

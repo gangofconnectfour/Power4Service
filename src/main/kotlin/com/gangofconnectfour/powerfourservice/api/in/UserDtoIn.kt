@@ -8,12 +8,10 @@ import javax.validation.constraints.Email
 class UserDtoIn {
 
     @Email
-    var email : String = ""
-    var encryptedPass : String = ""
-    var uuid : String = ""
-    var token : String = ""
-    var nickname : String = ""
-
+    var email : String? = null
+    var encryptedPass : String? = null
+    var uuid : String? = null
+    var nickname : String? = null
 
     constructor()
 
