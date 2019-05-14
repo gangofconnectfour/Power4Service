@@ -15,7 +15,6 @@ import org.springframework.web.util.UriComponentsBuilder
 import java.time.LocalDateTime
 import java.util.stream.Collectors
 
-
 @RestController
 @RequestMapping("/api/users")
 class UserController(userRepository: UserRepository, bCryptPasswordEncoder: BCryptPasswordEncoder) {
