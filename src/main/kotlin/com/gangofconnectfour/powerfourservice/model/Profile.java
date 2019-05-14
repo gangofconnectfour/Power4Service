@@ -4,11 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.UUID;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -18,8 +14,9 @@ import java.util.UUID;
 public class Profile {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "uuid")
-    private String uuid;
+    private Long uuid;
 
     @Column(name = "nickname")
     private String nickname;
@@ -30,15 +27,11 @@ public class Profile {
     @Column(name = "score")
     private Double score = 0d;
 
-    public Profile() {
-        this.uuid = UUID.randomUUID().toString();
-    }
-
-    public String getUuid() {
+    public Long getUuid() {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setUuid(Long uuid) {
         this.uuid = uuid;
     }
 

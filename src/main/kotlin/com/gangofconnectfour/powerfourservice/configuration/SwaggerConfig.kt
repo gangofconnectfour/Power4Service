@@ -3,10 +3,7 @@ package com.gangofconnectfour.powerfourservice.configuration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.bind.annotation.RequestMethod
-import springfox.documentation.builders.ApiInfoBuilder
-import springfox.documentation.builders.PathSelectors
-import springfox.documentation.builders.RequestHandlerSelectors
-import springfox.documentation.builders.ResponseMessageBuilder
+import springfox.documentation.builders.*
 import springfox.documentation.schema.ModelRef
 import springfox.documentation.service.ApiInfo
 import springfox.documentation.spi.DocumentationType
@@ -24,6 +21,14 @@ class SwaggerConfig {
     @Bean
     fun api () : Docket {
         return Docket(DocumentationType.SWAGGER_2)
+                .globalOperationParameters(
+                        Arrays.asList(ParameterBuilder()
+                                .name("Authorization")
+                                .description("Need a token type 'bearer' for use endpoint")
+                                .modelRef(ModelRef("string"))
+                                .parameterType("header")
+                                .required(true)
+                                .build()))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.gangofconnectfour.powerfourservice.facade"))
                 .paths(PathSelectors.any())

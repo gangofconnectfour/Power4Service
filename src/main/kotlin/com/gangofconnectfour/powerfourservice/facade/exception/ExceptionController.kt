@@ -13,4 +13,9 @@ class ExceptionController {
     fun handleException(ex: UUIDException): ResponseEntity<String> {
         return badRequest().body<String>(ex.message)
     }
+
+    @ExceptionHandler(RessourceNotFoundException::class)
+    fun handleException(ex: RessourceNotFoundException): ResponseEntity<String> {
+        return badRequest().body<String>(ex.message)
+    }
 }

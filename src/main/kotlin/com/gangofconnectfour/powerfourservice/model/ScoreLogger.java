@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,8 +14,9 @@ import javax.persistence.Table;
 public class ScoreLogger {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "uuid")
-    private String uuid;
+    private Long uuid;
 
     @Column(name = "duration")
     private Long duration;
@@ -29,4 +27,35 @@ public class ScoreLogger {
     @Column(name = "winner_id")
     private String winnerId;
 
+    public Long getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(Long uuid) {
+        this.uuid = uuid;
+    }
+
+    public Long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Long duration) {
+        this.duration = duration;
+    }
+
+    public Integer getNbTurn() {
+        return nbTurn;
+    }
+
+    public void setNbTurn(Integer nbTurn) {
+        this.nbTurn = nbTurn;
+    }
+
+    public String getWinnerId() {
+        return winnerId;
+    }
+
+    public void setWinnerId(String winnerId) {
+        this.winnerId = winnerId;
+    }
 }

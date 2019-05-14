@@ -10,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
@@ -19,8 +18,9 @@ import java.util.UUID;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "uuid")
-    private String uuid;
+    private Long uuid;
 
     @OneToMany(orphanRemoval = true)
     private List<AuthData> auths;
@@ -51,31 +51,31 @@ public class User {
     @Column(name = "update_at")
     private LocalDateTime updateAt;
 
+    @JsonIgnore
     @Column(name = "user_ws")
     private Boolean userWS = Boolean.FALSE;
 
-    public User(UserDtoIn dtoIn){
-        this.uuid = UUID.randomUUID().toString();
+    public User(UserDtoIn dtoIn, Boolean isAdmin){
         this.email = dtoIn.getEmail();
-        this.password = dtoIn.getEncryptedPass();
+        this.password = dtoIn.getPassword();
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
+        this.userWS = isAdmin;
     }
 
-    public User(String email, String password) {
-        this.uuid = UUID.randomUUID().toString();
+    public User(String email, String password, Boolean isAdmin) {
         this.email = email;
         this.password = password;
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
-        this.userWS = Boolean.TRUE;
+        this.userWS = isAdmin;
     }
 
-    public String getUuid() {
+    public Long getUuid() {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setUuid(Long uuid) {
         this.uuid = uuid;
     }
 

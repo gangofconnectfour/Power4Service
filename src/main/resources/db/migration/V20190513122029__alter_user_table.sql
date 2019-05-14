@@ -1,1 +1,0 @@
-ALTER TABLE if exists public.user add user_ws int;

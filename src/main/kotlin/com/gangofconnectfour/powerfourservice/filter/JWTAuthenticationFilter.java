@@ -42,7 +42,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             User userFinded = userRepository.getUserByMail(creds.getMail());
 
-            if (!Boolean.FALSE.equals(userFinded.getUserWS())) {
+            if (Boolean.FALSE.equals(userFinded.getUserWS())) {
                 return authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
                                 creds.getMail(),

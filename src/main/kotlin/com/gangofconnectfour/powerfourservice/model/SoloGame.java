@@ -14,8 +14,9 @@ import javax.persistence.*;
 public class SoloGame {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "uudi")
-    private String uuid;
+    private Long uuid;
 
     @Column(name = "ai_dificulty")
     private Integer aiDificulty;
@@ -26,5 +27,35 @@ public class SoloGame {
     @OneToOne
     private ScoreLogger scoreLogger;
 
+    public Long getUuid() {
+        return uuid;
+    }
 
+    public void setUuid(Long uuid) {
+        this.uuid = uuid;
+    }
+
+    public Integer getAiDificulty() {
+        return aiDificulty;
+    }
+
+    public void setAiDificulty(Integer aiDificulty) {
+        this.aiDificulty = aiDificulty;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public ScoreLogger getScoreLogger() {
+        return scoreLogger;
+    }
+
+    public void setScoreLogger(ScoreLogger scoreLogger) {
+        this.scoreLogger = scoreLogger;
+    }
 }

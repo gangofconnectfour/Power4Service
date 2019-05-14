@@ -14,8 +14,9 @@ import javax.persistence.*;
 public class MultiGame {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "uuid")
-    private String uuid;
+    private Long uuid;
 
     @OneToOne
     private Game game;
@@ -23,4 +24,27 @@ public class MultiGame {
     @OneToOne
     private ScoreLogger scoreLogger;
 
+    public Long getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(Long uuid) {
+        this.uuid = uuid;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public ScoreLogger getScoreLogger() {
+        return scoreLogger;
+    }
+
+    public void setScoreLogger(ScoreLogger scoreLogger) {
+        this.scoreLogger = scoreLogger;
+    }
 }

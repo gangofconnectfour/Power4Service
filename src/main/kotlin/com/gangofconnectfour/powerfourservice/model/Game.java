@@ -15,12 +15,27 @@ import java.util.Date;
 public class Game {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "uuid")
-    private String uuid;
+    private Long uuid;
 
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     protected Date createdAt;
 
+    public Long getUuid() {
+        return uuid;
+    }
 
+    public void setUuid(Long uuid) {
+        this.uuid = uuid;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }

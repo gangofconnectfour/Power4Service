@@ -1,11 +1,7 @@
 package com.gangofconnectfour.powerfourservice
 
-import com.gangofconnectfour.powerfourservice.model.User
-import com.gangofconnectfour.powerfourservice.repository.UserRepository
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.util.CollectionUtils
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry
@@ -32,11 +28,11 @@ class PowerfourserviceApplication : WebMvcConfigurer {
 
 fun main(args: Array<String>) {
     var conf = runApplication<PowerfourserviceApplication>(*args)
-    var userRepo = conf.getBean(UserRepository::class.java)
+    /*var userRepo = conf.getBean(UserRepository::class.java)
     var bcrypt = conf.getBean(BCryptPasswordEncoder::class.java)
     if (CollectionUtils.isEmpty(userRepo.findAll())){
-        var user = User("admin@power4.com", bcrypt.encode("admin"))
+        var user = User("admin@power4.com", bcrypt.encode("admin"), true)
         userRepo.save(user)
-    }
+    }*/
 
 }

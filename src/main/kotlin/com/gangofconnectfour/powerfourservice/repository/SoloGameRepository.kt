@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface SoloGameRepository : JpaRepository<SoloGame, String> {
+interface SoloGameRepository : JpaRepository<SoloGame, Long> {
 }

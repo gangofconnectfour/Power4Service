@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface MultiGameRepository : JpaRepository<MultiGame, String> {
+interface MultiGameRepository : JpaRepository<MultiGame, Long> {
 }
