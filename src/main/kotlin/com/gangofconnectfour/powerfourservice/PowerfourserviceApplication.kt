@@ -27,12 +27,5 @@ class PowerfourserviceApplication : WebMvcConfigurer {
 }
 
 fun main(args: Array<String>) {
-    var conf = runApplication<PowerfourserviceApplication>(*args)
-    /*var userRepo = conf.getBean(UserRepository::class.java)
-    var bcrypt = conf.getBean(BCryptPasswordEncoder::class.java)
-    if (CollectionUtils.isEmpty(userRepo.findAll())){
-        var user = User("admin@power4.com", bcrypt.encode("admin"), true)
-        userRepo.save(user)
-    }*/
-
+    runApplication<PowerfourserviceApplication>(*args)
 }
