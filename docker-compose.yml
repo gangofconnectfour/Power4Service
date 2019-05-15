@@ -3,7 +3,7 @@ version: '3.1'
 
 services:
 
-  db:
+  database:
     image: postgres:11.2
     restart: always
     environment:
@@ -11,7 +11,7 @@ services:
       POSTGRES_DB: powerfour
       POSTGRES_USER: powerfour
     volumes:
-      - ./db/postgres/data:/var/lib/postgresql/data
+      - ./database/postgres/data:/var/lib/postgresql/data
 
   app:
     build:
@@ -19,9 +19,9 @@ services:
       dockerfile: Dockerfile
     command: mvn spring-boot:run
     depends_on:
-      - db
+      - database
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/powerfour
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/powerfour
 
   specs:
     build:
@@ -29,9 +29,9 @@ services:
       dockerfile: Dockerfile
     command: mvn clean install
     depends_on:
-    - db
+    - database
     environment:
-    - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/powerfour
+    - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/powerfour
 
   adminer:
     image: adminer
