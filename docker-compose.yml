@@ -13,15 +13,25 @@ services:
     volumes:
       - ./db/postgres/data:/var/lib/postgresql/data
 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: mvn spring-boot:run
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/powerfour
+
   specs:
     build:
       context: .
       dockerfile: Dockerfile
     command: mvn clean install
     depends_on:
-      - db
+    - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/powerfour
+    - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/powerfour
 
   adminer:
     image: adminer
