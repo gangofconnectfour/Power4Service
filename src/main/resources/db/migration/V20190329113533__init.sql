@@ -1,5 +1,5 @@
     create table public.auth (
-       uuid varchar(255) not null,
+       uuid serial not null ,
         connected_at timestamp,
         expired_at timestamp,
         token varchar(255),
@@ -7,20 +7,20 @@
     );
 
     create table public.game (
-       uuid varchar(255) not null,
+       uuid serial not null,
         created_at timestamp,
         primary key (uuid)
     );
 
     create table public.multi_game (
-       uuid varchar(255) not null,
-        game_uuid varchar(255),
-        score_logger_uuid varchar(255),
+       uuid serial not null,
+        game_uuid int,
+        score_logger_uuid int,
         primary key (uuid)
     );
 
     create table public.profile (
-       uuid varchar(255) not null,
+       uuid serial not null,
         level int4,
         nickname varchar(255),
         score float8,
@@ -28,44 +28,45 @@
     );
 
     create table public.score_logger (
-       uuid varchar(255) not null,
+       uuid serial not null,
         duration int8,
         nb_turn int4,
-        winner_id varchar(255),
+        winner_id int,
         primary key (uuid)
     );
 
     create table public.solo_game (
-       uudi varchar(255) not null,
+       uudi serial not null,
         ai_dificulty int4,
-        game_uuid varchar(255),
-        score_logger_uuid varchar(255),
+        game_uuid int,
+        score_logger_uuid int,
         primary key (uudi)
     );
 
     create table public.user (
-       uuid varchar(255) not null,
+       uuid serial not null,
         create_at timestamp,
         email varchar(255),
         password varchar(255),
         update_at timestamp,
-        profile_uuid varchar(255),
+        profile_uuid int,
+        user_ws boolean,
         primary key (uuid)
     );
 
     create table public.user_auths (
-       user_uuid varchar(255) not null,
-        auths_uuid varchar(255) not null
+       user_uuid int not null,
+        auths_uuid int not null
     );
 
     create table public.user_multi_games (
-       user_uuid varchar(255) not null,
-        multi_games_uuid varchar(255) not null
+       user_uuid int not null,
+        multi_games_uuid int not null
     );
 
     create table public.user_solo_games (
-       user_uuid varchar(255) not null,
-        solo_games_uudi varchar(255) not null);
+       user_uuid int not null,
+        solo_games_uudi int not null);
 
 
     alter table if exists public.user_auths
