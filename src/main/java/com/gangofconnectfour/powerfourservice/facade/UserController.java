@@ -84,8 +84,12 @@ public class UserController {
 
     @GetMapping
     @ApiOperation("Liste tous les utilisateurs")
-    public List<User> allUsers() {
-        return userRepository.findAll().stream().filter(u -> !u.getUserWS()).collect(Collectors.toList());
+    public List<User> allUsers(@RequestParam("withAdmin") Boolean withAdmin) {
+        List<User> users = userRepository.findAll();
+        if (withAdmin)
+            return users;
+        else
+            return users.stream().filter(u -> !u.getUserWS()).collect(Collectors.toList());
     }
 
 }
