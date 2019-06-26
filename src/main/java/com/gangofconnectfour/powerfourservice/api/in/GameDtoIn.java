@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GameDtoIn {
 
-    private String token;
-    private Long uuid;
+    private Long id;
     private int aiDifficulty = 0;
     private Boolean versusAi = Boolean.FALSE;
+
 }

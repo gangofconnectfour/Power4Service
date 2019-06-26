@@ -5,7 +5,7 @@ import com.gangofconnectfour.powerfourservice.facade.exception.RessourceNotFound
 import com.gangofconnectfour.powerfourservice.facade.exception.UUIDException;
 import com.gangofconnectfour.powerfourservice.model.Profile;
 import com.gangofconnectfour.powerfourservice.model.User;
-import com.gangofconnectfour.powerfourservice.repository.UserRepository;
+import com.gangofconnectfour.powerfourservice.repository.impl.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,11 +28,11 @@ import static org.springframework.http.ResponseEntity.created;
 @Api(description = "Gestion des utilisateurs")
 public class UserController {
 
-    private UserRepository userRepository;
+    private UserService userService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -43,7 +43,7 @@ public class UserController {
         User user = new User(dtoIn, false);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
-        user = userRepository.save(user);
+        user = userService.save(user);
 
         URI uri = uriBuilder.path("/api/users/{uuid}/details").buildAndExpand(user.getUuid()).toUri();
         return created(uri).build();
@@ -52,7 +52,7 @@ public class UserController {
     @GetMapping("/{uuid}/details")
     @ApiOperation("Renvois les details d'un utilisateur")
     public User userDetail(@ApiParam("Id de l'utilisateur") @PathVariable("uuid")Long uuid ) throws RessourceNotFoundException {
-        User user = userRepository.findByUuid(uuid);
+        User user = userService.findByUuid(uuid);
         if (user == null || user.getUserWS()){
             throw new RessourceNotFoundException("user with uuid : " + uuid + ", not found");
         }
@@ -66,7 +66,7 @@ public class UserController {
         if (StringUtils.isEmpty(userUpdateDto.getUuid())){
             throw new UUIDException();
         }
-        User user = userRepository.findByUuid(userUpdateDto.getUuid());
+        User user = userService.findByUuid(userUpdateDto.getUuid());
 
         if (!StringUtils.isEmpty(userUpdateDto.getEmail()))
             user.setEmail(userUpdateDto.getEmail());
@@ -79,13 +79,13 @@ public class UserController {
             user.getProfile().setNickname( userUpdateDto.getNickname());
         }
         user.setUpdateAt(LocalDateTime.now());
-        userRepository.save(user);
+        userService.save(user);
     }
 
     @GetMapping
     @ApiOperation("Liste tous les utilisateurs")
     public List<User> allUsers(@RequestParam("withAdmin") Boolean withAdmin) {
-        List<User> users = userRepository.findAll();
+        List<User> users = userService.findAll();
         if (withAdmin)
             return users;
         else

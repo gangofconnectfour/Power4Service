@@ -27,6 +27,12 @@ public class ScoreLogger {
     @Column(name = "winner_id")
     private String winnerId;
 
+    public ScoreLogger(Long duration, Integer nbTurn, String winnerId) {
+        this.duration = duration;
+        this.nbTurn = nbTurn;
+        this.winnerId = winnerId;
+    }
+
     public Long getUuid() {
         return uuid;
     }

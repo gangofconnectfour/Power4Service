@@ -2,8 +2,8 @@ package com.gangofconnectfour.powerfourservice.configuration;
 
 import com.gangofconnectfour.powerfourservice.filter.JWTAuthenticationFilter;
 import com.gangofconnectfour.powerfourservice.filter.JWTAuthorizationFilter;
-import com.gangofconnectfour.powerfourservice.repository.UserRepository;
 import com.gangofconnectfour.powerfourservice.repository.impl.UserDetailsServiceImpl;
+import com.gangofconnectfour.powerfourservice.repository.impl.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -20,16 +20,16 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-@DependsOn("userRepository")
+@DependsOn("userService")
 public class JWTSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsServiceImpl userDetailsService;
-    private UserRepository userRepository;
+    private UserService userService;
     private SecurityDataConfig securityDataConfig;
 
-    public JWTSecurityConfig(UserDetailsServiceImpl userDetailsService, UserRepository userRepository, SecurityDataConfig securityDataConfig) {
+    public JWTSecurityConfig(UserDetailsServiceImpl userDetailsService, UserService userService, SecurityDataConfig securityDataConfig) {
         this.userDetailsService = userDetailsService;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.securityDataConfig = securityDataConfig;
     }
 
@@ -41,7 +41,7 @@ public class JWTSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager(), userRepository, securityDataConfig))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(), userService, securityDataConfig))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), securityDataConfig))
                 // this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

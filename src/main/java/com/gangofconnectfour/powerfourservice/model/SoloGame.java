@@ -1,10 +1,12 @@
 package com.gangofconnectfour.powerfourservice.model;
 
+import com.gangofconnectfour.powerfourservice.api.in.GameDtoIn;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +28,12 @@ public class SoloGame {
 
     @OneToOne
     private ScoreLogger scoreLogger;
+
+    public SoloGame(GameDtoIn gameDtoIn) {
+        game = new Game(LocalDateTime.now());
+        aiDificulty = gameDtoIn.getAiDifficulty();
+        scoreLogger = new ScoreLogger();
+    }
 
     public Long getUuid() {
         return uuid;

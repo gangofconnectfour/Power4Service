@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gangofconnectfour.powerfourservice.api.in.LoginDtoIn;
 import com.gangofconnectfour.powerfourservice.configuration.SecurityDataConfig;
 import com.gangofconnectfour.powerfourservice.model.User;
-import com.gangofconnectfour.powerfourservice.repository.UserRepository;
+import com.gangofconnectfour.powerfourservice.repository.impl.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,12 +24,12 @@ import java.util.Date;
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
-    private UserRepository userRepository;
+    private UserService userService;
     private SecurityDataConfig securityDataConfig;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, UserRepository userRepository, SecurityDataConfig securityDataConfig) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, SecurityDataConfig securityDataConfig) {
         this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.securityDataConfig = securityDataConfig;
     }
 
@@ -40,7 +40,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             LoginDtoIn creds = new ObjectMapper()
                     .readValue(req.getInputStream(), LoginDtoIn.class);
 
-            User userFinded = userRepository.getUserByMail(creds.getMail());
+            User userFinded = userService.getUserByMail(creds.getMail());
 
             if (Boolean.FALSE.equals(userFinded.getUserWS())) {
                 return authenticationManager.authenticate(

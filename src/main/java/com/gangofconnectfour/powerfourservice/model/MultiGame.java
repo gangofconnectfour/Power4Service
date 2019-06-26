@@ -1,10 +1,12 @@
 package com.gangofconnectfour.powerfourservice.model;
 
+import com.gangofconnectfour.powerfourservice.api.in.GameDtoIn;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +25,11 @@ public class MultiGame {
 
     @OneToOne
     private ScoreLogger scoreLogger;
+
+    public MultiGame(GameDtoIn gameDtoIn) {
+        game = new Game(LocalDateTime.now());
+        scoreLogger = new ScoreLogger();
+    }
 
     public Long getUuid() {
         return uuid;
