@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ScoreDtoIn {
 
-    private String token;
-    private Long uuidUser;
-    private Long  uuidGame;
-    private Boolean isScorePlayer = Boolean.FALSE;
-    private Boolean isScoreGame = Boolean.FALSE;
+    private Boolean versusAi;
+    private Boolean gameWithAnother;
+
 
 }

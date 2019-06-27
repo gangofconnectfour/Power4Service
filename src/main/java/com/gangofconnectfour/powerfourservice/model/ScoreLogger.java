@@ -25,9 +25,9 @@ public class ScoreLogger {
     private Integer nbTurn;
 
     @Column(name = "winner_id")
-    private String winnerId;
+    private Long winnerId;
 
-    public ScoreLogger(Long duration, Integer nbTurn, String winnerId) {
+    public ScoreLogger(Long duration, Integer nbTurn, Long winnerId) {
         this.duration = duration;
         this.nbTurn = nbTurn;
         this.winnerId = winnerId;
@@ -57,11 +57,11 @@ public class ScoreLogger {
         this.nbTurn = nbTurn;
     }
 
-    public String getWinnerId() {
+    public Long getWinnerId() {
         return winnerId;
     }
 
-    public void setWinnerId(String winnerId) {
+    public void setWinnerId(Long winnerId) {
         this.winnerId = winnerId;
     }
 }

@@ -1,15 +1,13 @@
 package com.gangofconnectfour.powerfourservice.api.out;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ScoreDtoOut {
 
     private ScoreDetailDto scoreGame;
-    private ScoreDetailDto scorePlayer;
+    private List<ScoreDetailDto> scorePlayer;
 
 }
