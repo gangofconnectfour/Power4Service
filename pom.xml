@@ -16,7 +16,6 @@
     <properties>
         <java.version>1.8</java.version>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
-        <asciidoctor-maven-plugin.version>1.5.3</asciidoctor-maven-plugin.version>
         <tensorflow.version>1.13.1</tensorflow.version>
         <java-jwt.version>3.4.0</java-jwt.version>
     </properties>
