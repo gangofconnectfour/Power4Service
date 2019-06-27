@@ -3,38 +3,14 @@ version: '3.1'
 
 services:
 
-  database:
-    image: postgres:11.2
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: powerfour
-      POSTGRES_DB: powerfour
-      POSTGRES_USER: powerfour
-    volumes:
-      - ./database/postgres/data:/var/lib/postgresql/data
-
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: mvn spring-boot:run
-    depends_on:
-      - database
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/powerfour
-
   specs:
     build:
       context: .
-      dockerfile: Dockerfile
-    command: mvn clean install
-    depends_on:
-    - database
-    environment:
-    - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/powerfour
 
-  adminer:
-    image: adminer
-    restart: always
+  app:
+    image: power4service_specs
+    depends_on:
+    - specs
+    command: java -jar -Dserver.port=5000 -Dspring.profiles.active=default target/powerfourservice-1.0.0-SNAPSHOT.jar
     ports:
-      - 3000:8080
+    - 80:5000
