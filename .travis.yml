@@ -6,18 +6,14 @@ env:
 - MAVEN_VERSION=3.3.9
 
 install:
-  - "docker-compose build"
-script: "docker-compose run specs"
+- "mvn -N io.takari:maven:wrapper -Dmaven=${MAVEN_VERSION}"
+- "./mvnw --show-version --errors --batch-mode test-compile dependency:go-offline"
+
+script: "./mvnw --show-version --errors --batch-mode clean install"
 
 cache:
   directories:
   - $HOME/.m2
-
-before_install:
-- "docker-compose build"
-
-services:
-- docker
 
 after_success:
 - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
