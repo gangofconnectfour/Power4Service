@@ -39,12 +39,12 @@ public class GameController {
         } else {
             uuid = multiGameService.save(new MultiGame(dtoIn)).getUuid();
         }
-        URI uri = uriBuilder.path("/api/games/{uuid}/details").buildAndExpand(uuid).toUri();
+        URI uri = uriBuilder.path("/api/games/{uuid}/details?versusAi="+dtoIn.getVersusAi()).buildAndExpand(uuid).toUri();
         return created(uri).build();
     }
 
     @GetMapping("/{uuid}/details")
-    public GameDtoOut getGame(@RequestBody GameDtoIn dtoIn, UriComponentsBuilder uriBuilder) {
+    public GameDtoOut getGame(@RequestBody GameDtoIn dtoIn) {
         GameDtoOut gameDtoOut = null;
         if (dtoIn.getVersusAi()){
             SoloGame soloGame = soloGameService.findById(dtoIn.getId());

@@ -12,15 +12,15 @@ import java.util.Collections;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    public UserRepository userRepository;
+    public UserService userService;
 
-    public UserDetailsServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserDetailsServiceImpl(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User userFounded = this.userRepository.getUserByMail(s);
+        User userFounded = this.userService.getUserByMail(s);
         if (userFounded == null)
             throw new UsernameNotFoundException(s);
         return new org.springframework.security.core.userdetails.User(userFounded.getEmail(), userFounded.getPassword(), Collections.emptyList());
