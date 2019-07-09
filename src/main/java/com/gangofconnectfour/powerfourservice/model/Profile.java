@@ -22,7 +22,7 @@ public class Profile {
     private String nickname;
 
     @Column(name = "level")
-    private Integer level = 0;
+    private Integer level = 1;
 
     @Column(name = "score")
     private Double score = 0d;

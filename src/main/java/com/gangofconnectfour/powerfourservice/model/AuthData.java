@@ -28,6 +28,13 @@ public class AuthData {
     @Column(name = "expired_at", updatable = false)
     private LocalDateTime expiredAt;
 
+
+    public AuthData(String token, LocalDateTime connectedAt, LocalDateTime expiredAt) {
+        this.token = token;
+        this.connectedAt = connectedAt;
+        this.expiredAt = expiredAt;
+    }
+
     public Long getUuid() {
         return uuid;
     }

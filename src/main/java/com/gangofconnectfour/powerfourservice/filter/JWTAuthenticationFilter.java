@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gangofconnectfour.powerfourservice.api.in.LoginDtoIn;
 import com.gangofconnectfour.powerfourservice.configuration.SecurityDataConfig;
+import com.gangofconnectfour.powerfourservice.model.AuthData;
 import com.gangofconnectfour.powerfourservice.model.User;
 import com.gangofconnectfour.powerfourservice.repository.impl.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,18 +15,20 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    private static final int ONE_HOUR_MILLIS = 3_600_000;
     private AuthenticationManager authenticationManager;
     private UserService userService;
     private SecurityDataConfig securityDataConfig;
+    private String token;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, SecurityDataConfig securityDataConfig) {
         this.authenticationManager = authenticationManager;
@@ -49,12 +52,17 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                 creds.getPassword()));
             }
 
-            return authenticationManager.authenticate(
+            Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             creds.getMail(),
                             creds.getPassword(),
                             new ArrayList<>())
             );
+            generateToken(authentication);
+            userFinded.appendAuthData(new AuthData(this.token, LocalDateTime.now(), LocalDateTime.now().plusHours(securityDataConfig.getExpirationTime() / ONE_HOUR_MILLIS)));
+            userService.save(userFinded);
+
+            return authentication;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -64,12 +72,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest req,
                                             HttpServletResponse res,
                                             FilterChain chain,
-                                            Authentication auth) throws IOException, ServletException {
+                                            Authentication auth) {
 
-        String token = JWT.create()
+        res.addHeader(securityDataConfig.getHeaderString(), securityDataConfig.getTokenPrefix() + token);
+    }
+
+    private void generateToken(Authentication auth){
+        this.token = JWT.create()
                 .withSubject(auth.getPrincipal().toString())
                 .withExpiresAt(new Date(System.currentTimeMillis() + securityDataConfig.getExpirationTime()))
                 .sign(Algorithm.HMAC512(securityDataConfig.getSecret().getBytes()));
-        res.addHeader(securityDataConfig.getHeaderString(), securityDataConfig.getTokenPrefix() + token);
     }
 }

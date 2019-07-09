@@ -3,12 +3,14 @@ package com.gangofconnectfour.powerfourservice.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gangofconnectfour.powerfourservice.api.in.UserDtoIn;
+import com.gangofconnectfour.powerfourservice.utils.Closures;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -149,5 +151,10 @@ public class User {
 
     public void setUserWS(Boolean userWS) {
         this.userWS = userWS;
+    }
+
+    public void appendAuthData(AuthData authData){
+        this.auths = Closures.opt(() -> this.auths).orElseGet(ArrayList::new);
+        this.auths.add(authData);
     }
 }
