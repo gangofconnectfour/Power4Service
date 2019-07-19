@@ -59,8 +59,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                             new ArrayList<>())
             );
             generateToken(authentication);
-            userFinded.appendAuthData(new AuthData(this.token, LocalDateTime.now(), LocalDateTime.now().plusHours(securityDataConfig.getExpirationTime() / ONE_HOUR_MILLIS)));
-            userService.save(userFinded);
 
             return authentication;
         } catch (IOException e) {

@@ -20,10 +20,10 @@ public class MultiGame {
     @Column(name = "uuid")
     private Long uuid;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Game game;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private ScoreLogger scoreLogger;
 
     public MultiGame(GameDtoIn gameDtoIn) {

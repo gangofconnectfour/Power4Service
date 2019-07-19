@@ -23,10 +23,10 @@ public class SoloGame {
     @Column(name = "ai_dificulty")
     private Integer aiDificulty;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Game game;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private ScoreLogger scoreLogger;
 
     public SoloGame(GameDtoIn gameDtoIn) {
