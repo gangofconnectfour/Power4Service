@@ -6,6 +6,7 @@ import com.gangofconnectfour.powerfourservice.facade.exception.UUIDException;
 import com.gangofconnectfour.powerfourservice.model.Profile;
 import com.gangofconnectfour.powerfourservice.model.User;
 import com.gangofconnectfour.powerfourservice.repository.impl.UserService;
+import com.gangofconnectfour.powerfourservice.utils.Closures;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -73,9 +74,7 @@ public class UserController {
         if (!StringUtils.isEmpty(userUpdateDto.getPassword()))
             user.setPassword(bCryptPasswordEncoder.encode(userUpdateDto.getPassword()));
         if (!StringUtils.isEmpty(userUpdateDto.getNickname())) {
-            if (user.getProfile() == null) {
-                user.setProfile(new Profile());
-            }
+            user.setProfile(Closures.opt(user::getProfile).orElse(new Profile()));
             user.getProfile().setNickname( userUpdateDto.getNickname());
         }
         user.setUpdateAt(LocalDateTime.now());
