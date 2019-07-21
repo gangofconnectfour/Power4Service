@@ -16,7 +16,6 @@
     <properties>
         <java.version>1.8</java.version>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
-        <tensorflow.version>1.13.1</tensorflow.version>
         <java-jwt.version>3.4.0</java-jwt.version>
     </properties>
 
@@ -68,14 +67,7 @@
             <version>${java-jwt.version}</version>
         </dependency>
 
-    <!--    TENSORFLOW  -->
-        <dependency>
-            <groupId>org.tensorflow</groupId>
-            <artifactId>tensorflow</artifactId>
-            <version>${tensorflow.version}</version>
-        </dependency>
-
-    <!--    DATABASE  -->
+        <!--    DATABASE  -->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
