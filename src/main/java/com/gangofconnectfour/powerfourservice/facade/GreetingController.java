@@ -22,7 +22,7 @@ public class GreetingController {
         Random rand = new Random();
         System.out.println(json);
         Thread.sleep(1000); // simulated delay
-        return ResponseEntity.ok("{hit:"+rand.nextInt(7)+"}");
+        return ResponseEntity.ok("{\"hit\":"+rand.nextInt(7)+"}");
     }
 
 }
