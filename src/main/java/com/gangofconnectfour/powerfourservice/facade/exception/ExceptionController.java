@@ -18,4 +18,9 @@ public class ExceptionController {
     public ResponseEntity<String> handleException(RessourceNotFoundException ex) {
         return badRequest().body(ex.getMessage());
     }
+
+    @ExceptionHandler(CallAiException.class)
+    public ResponseEntity<String> handleException(CallAiException ex) {
+        return badRequest().body(ex.getMessage());
+    }
 }

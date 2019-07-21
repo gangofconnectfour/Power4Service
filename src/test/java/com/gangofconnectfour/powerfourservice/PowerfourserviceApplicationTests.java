@@ -59,7 +59,7 @@ public class PowerfourserviceApplicationTests {
 
         @Test
         public void getAllUser(){
-               given().log().all().contentType(ContentType.JSON)
+                given().log().all().contentType(ContentType.JSON)
                         .header("Authorization", token)
                         .param("withAdmin", false)
                         .when().get("/api/users")
@@ -68,7 +68,7 @@ public class PowerfourserviceApplicationTests {
 
         @Test
         public void getUserWithId_2(){
-                 given().log().all().contentType(ContentType.JSON)
+                given().log().all().contentType(ContentType.JSON)
                         .header("Authorization", token)
                         .pathParams("uuid", 2)
                         .when().get("/api/users/{uuid}/details")
