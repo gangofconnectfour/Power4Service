@@ -46,7 +46,7 @@ public class JWTSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rtc/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager(), userService, securityDataConfig))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(), userService, securityDataConfig, bCryptPasswordEncoder()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), securityDataConfig))
                 // this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

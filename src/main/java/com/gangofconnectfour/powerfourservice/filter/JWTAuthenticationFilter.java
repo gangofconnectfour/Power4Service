@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -29,11 +30,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private UserService userService;
     private SecurityDataConfig securityDataConfig;
     private String token;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, SecurityDataConfig securityDataConfig) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, SecurityDataConfig securityDataConfig, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.securityDataConfig = securityDataConfig;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -45,12 +48,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             User userFinded = userService.getUserByMail(creds.getMail());
 
-            if (Boolean.FALSE.equals(userFinded.getUserWS())) {
+            if (Boolean.FALSE.equals(userFinded.getUserWS()) || !bCryptPasswordEncoder.matches(creds.getPassword(), userFinded.getPassword()))
                 return authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
                                 creds.getMail(),
                                 creds.getPassword()));
-            }
+            
 
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
